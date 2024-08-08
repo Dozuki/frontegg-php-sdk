@@ -6,7 +6,7 @@ use Frontegg\Http\Response as FronteggResponse;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7\Utils;
 
 class FronteggResponseErrorResolver implements FilterInterface
 {
@@ -45,7 +45,7 @@ class FronteggResponseErrorResolver implements FilterInterface
      */
     protected function setServerErrorToResponse(ResponseInterface $response): ResponseInterface
     {
-        $stream = stream_for(self::FRONTEGG_REQUEST_FAILED);
+        $stream = Utils::streamFor(self::FRONTEGG_REQUEST_FAILED);
 
         return $response->withBody($stream);
     }

@@ -7,7 +7,7 @@ use GuzzleHttp\Psr7\Stream;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
-use function GuzzleHttp\Psr7\stream_for;
+use GuzzleHttp\Psr7\Utils;
 
 class FronteggRequestHeaderResolver implements FilterInterface
 {
@@ -39,7 +39,7 @@ class FronteggRequestHeaderResolver implements FilterInterface
     {
         $body = $this->getBodyContents($request);
         parse_str($body, $data);
-        $stream = stream_for(json_encode($data));
+        $stream = Utils::streamFor(json_encode($data));
 
         return $request->withBody($stream);
     }
